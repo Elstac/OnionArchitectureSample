@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using OnionArchitectureSample.Infrastructure;
 
 namespace OnionArchitectureSample.Api
 {
@@ -21,6 +23,12 @@ namespace OnionArchitectureSample.Api
         {
             services.AddControllers();
 
+            services.AddDbContext<ApplicationDbContext>(options=>
+            {
+                options.UseSqlServer(
+                    "Server=.;Database=entityframework;Trusted_Connection=True;MultipleActiveResultSets=true;Database=OnionArchitectureSample"
+                    );
+            });
 
             services.AddSwaggerGen(c =>
             {
