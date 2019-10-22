@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using OnionArchitectureSample.Application.Configuration;
 using OnionArchitectureSample.Infrastructure;
 using System;
 
@@ -45,7 +46,7 @@ namespace OnionArchitectureSample.Api
                 return new ApplicationDbContext(optionsBuilder.Options);
             });
 
-
+            builder.RegisterModule(new ServicesModule());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
