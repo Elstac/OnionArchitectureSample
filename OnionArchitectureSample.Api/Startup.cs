@@ -1,3 +1,5 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using OnionArchitectureSample.Infrastructure;
+using System;
 
 namespace OnionArchitectureSample.Api
 {
@@ -17,22 +20,29 @@ namespace OnionArchitectureSample.Api
         }
 
         public IConfiguration Configuration { get; }
+        public ILifetimeScope AutofacContainer { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
-            services.AddDbContext<ApplicationDbContext>(options=>
-            {
-                options.UseSqlServer(
-                    "Server=.;Database=entityframework;Trusted_Connection=True;MultipleActiveResultSets=true;Database=OnionArchitectureSample"
-                    );
-            });
-
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+            });
+
+        }
+
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            builder.Register<ApplicationDbContext>(context =>
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+                optionsBuilder.UseSqlServer(
+                        "Server=.;Database=entityframework;Trusted_Connection=True;MultipleActiveResultSets=true;Database=OnionArchitectureSample"
+                        );
+
+                return new ApplicationDbContext(optionsBuilder.Options);
             });
         }
 
@@ -43,6 +53,8 @@ namespace OnionArchitectureSample.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            AutofacContainer = app.ApplicationServices.GetAutofacRoot();
 
             //Enable swagger
             app.UseSwagger();

@@ -13,14 +13,9 @@ namespace OnionArchitectureSample.Api.Controllers
     {
         private ApplicationDbContext context;
 
-        public SampleApiController()
+        public SampleApiController(ApplicationDbContext context)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            optionsBuilder.UseSqlServer(
-                    "Server=.;Database=entityframework;Trusted_Connection=True;MultipleActiveResultSets=true;Database=OnionArchitectureSample"
-                    );
-
-            context = new ApplicationDbContext(optionsBuilder.Options);
+            this.context = context;
         }
 
         [HttpGet("getAll")]
