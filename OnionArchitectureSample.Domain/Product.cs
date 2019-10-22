@@ -7,5 +7,6 @@ namespace OnionArchitectureSample.Domain
         public Guid Id { get; }
         public string Name { get; set; }
         public float Price { get; set; }
+        public string PrivateCode { get; set; }
     }
 }
