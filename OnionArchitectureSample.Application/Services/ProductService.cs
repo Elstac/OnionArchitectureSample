@@ -1,4 +1,5 @@
 ﻿using OnionArchitectureSample.Application.Contracts;
+using OnionArchitectureSample.Application.Contracts.Dtos;
 using OnionArchitectureSample.Domain;
 using OnionArchitectureSample.Infrastructure;
 using System.Collections.Generic;
@@ -15,9 +16,18 @@ namespace OnionArchitectureSample.Application.Services
             this.context = context;
         }
 
-        public IEnumerable<Product> GetAllProducts()
+        public IEnumerable<ProductDto> GetAllProducts()
         {
-            return context.Products.ToList();
+            var productDtosCollection = context
+                                        .Products
+                                        .Select(p => new ProductDto
+                                        {
+                                            Name = p.Name,
+                                            Price = p.Price
+                                        })
+                                        .ToList();
+
+            return productDtosCollection;
         }
     }
 }

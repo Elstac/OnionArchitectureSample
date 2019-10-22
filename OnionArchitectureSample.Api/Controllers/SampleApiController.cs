@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnionArchitectureSample.Application.Contracts;
-using OnionArchitectureSample.Domain;
+using OnionArchitectureSample.Application.Contracts.Dtos;
 using System.Collections.Generic;
 
 namespace OnionArchitectureSample.Api.Controllers
@@ -17,7 +17,7 @@ namespace OnionArchitectureSample.Api.Controllers
         }
 
         [HttpGet("getAll")]
-        public IEnumerable<Product> GetAll()
+        public IEnumerable<ProductDto> GetAll()
         {
             return productService.GetAllProducts();
         }
