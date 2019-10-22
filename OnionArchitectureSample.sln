@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29409.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnionArchitectureSample.Api", "OnionArchitectureSample.Api\OnionArchitectureSample.Api.csproj", "{C5FADBE6-DA55-4C70-81A0-2462611DF483}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnionArchitectureSample.Api", "OnionArchitectureSample.Api\OnionArchitectureSample.Api.csproj", "{C5FADBE6-DA55-4C70-81A0-2462611DF483}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnionArchitectureSample.Domain", "OnionArchitectureSample.Domain\OnionArchitectureSample.Domain.csproj", "{695058A7-3930-4BF1-9D59-FCE0B6778B0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnionArchitectureSample.Domain", "OnionArchitectureSample.Domain\OnionArchitectureSample.Domain.csproj", "{695058A7-3930-4BF1-9D59-FCE0B6778B0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnionArchitectureSample.Infrastructure", "OnionArchitectureSample.Infrastructure\OnionArchitectureSample.Infrastructure.csproj", "{8B9ECFDB-D90B-43F5-91E9-194ABD2D3FCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnionArchitectureSample.Infrastructure", "OnionArchitectureSample.Infrastructure\OnionArchitectureSample.Infrastructure.csproj", "{8B9ECFDB-D90B-43F5-91E9-194ABD2D3FCE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnionArchitectureSample.Application", "OnionArchitectureSample.Application\OnionArchitectureSample.Application.csproj", "{D2FCDB36-08E9-4031-8363-67A73D5CBF58}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{8B9ECFDB-D90B-43F5-91E9-194ABD2D3FCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B9ECFDB-D90B-43F5-91E9-194ABD2D3FCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B9ECFDB-D90B-43F5-91E9-194ABD2D3FCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2FCDB36-08E9-4031-8363-67A73D5CBF58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2FCDB36-08E9-4031-8363-67A73D5CBF58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2FCDB36-08E9-4031-8363-67A73D5CBF58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2FCDB36-08E9-4031-8363-67A73D5CBF58}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

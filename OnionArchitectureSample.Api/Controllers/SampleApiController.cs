@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using OnionArchitectureSample.Application.Contracts;
 using OnionArchitectureSample.Domain;
-using OnionArchitectureSample.Infrastructure;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace OnionArchitectureSample.Api.Controllers
 {
@@ -11,17 +9,17 @@ namespace OnionArchitectureSample.Api.Controllers
     [Route("[controller]")]
     public class SampleApiController : ControllerBase
     {
-        private ApplicationDbContext context;
+        private IProductService productService;
 
-        public SampleApiController(ApplicationDbContext context)
+        public SampleApiController(IProductService productService)
         {
-            this.context = context;
+            this.productService = productService;
         }
 
         [HttpGet("getAll")]
         public IEnumerable<Product> GetAll()
         {
-            return context.Products.ToList();
+            return productService.GetAllProducts();
         }
     }
 }
