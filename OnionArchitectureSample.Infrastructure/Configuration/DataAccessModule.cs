@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Microsoft.EntityFrameworkCore;
+using OnionArchitectureSample.Domain;
 using OnionArchitectureSample.Infrastructure.Repositories;
 
 namespace OnionArchitectureSample.Infrastructure.Configuration
