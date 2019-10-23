@@ -30,9 +30,11 @@ namespace OnionArchitectureSample.Api.Controllers
         }
 
         [HttpDelete("removeProduct/{productId}")]
-        public void UpdateProduct(Guid productId)
+        public IActionResult UpdateProduct(Guid productId)
         {
             productService.DeleteProduct(productId);
+
+            return NoContent();
         }
 
         [HttpPut("updateProduct/{productId}")]
