@@ -1,7 +1,7 @@
 ﻿using OnionArchitectureSample.Application.Contracts;
 using OnionArchitectureSample.Application.Contracts.Dtos;
 using OnionArchitectureSample.Domain;
-using OnionArchitectureSample.Infrastructure;
+using OnionArchitectureSample.Infrastructure.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,25 +10,23 @@ namespace OnionArchitectureSample.Application.Services
 {
     class ProductService : IProductService
     {
-        private ApplicationDbContext context;
+        private IProductRepository productRepository;
 
-        public ProductService(ApplicationDbContext context)
+        public ProductService(IProductRepository productRepository)
         {
-            this.context = context;
+            this.productRepository = productRepository;
         }
 
         public void AddProduct(ProductDto product)
         {
             var newProduct = new Product(product.Name, product.Price);
 
-            context.Products.Add(newProduct);
-            context.SaveChanges();
+            productRepository.AddProduct(newProduct);
         }
 
         public IEnumerable<ProductDto> GetAllProducts()
         {
-            var productDtosCollection = context
-                                        .Products
+            var productDtosCollection = productRepository.GetAllProducts()
                                         .Select(p => new ProductDto
                                         {
                                             Name = p.Name,
@@ -41,16 +39,12 @@ namespace OnionArchitectureSample.Application.Services
 
         public void DeleteProduct(Guid productId)
         {
-            var productToRemove = context.Products.Find(productId);
-
-            context.Products.Remove(productToRemove);
-
-            context.SaveChanges();
+            productRepository.DeleteProduct(productId);
         }
 
         public void UpdateProduct(Guid productId,ProductDto productDto)
         {
-            var productToUpdate = context.Products.Find(productId);
+            var productToUpdate = productRepository.Find(productId);
 
             if (!string.IsNullOrEmpty(productDto.Name))
                 productToUpdate.Name = productDto.Name;
@@ -58,9 +52,6 @@ namespace OnionArchitectureSample.Application.Services
             if (productDto.Price != 0)
                 productToUpdate.Price = productDto.Price;
 
-            context.Products.Update(productToUpdate);
-
-            context.SaveChanges();
         }
     }
 }
