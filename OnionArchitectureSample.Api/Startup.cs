@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using OnionArchitectureSample.Application.Configuration;
 using OnionArchitectureSample.Infrastructure;
+using OnionArchitectureSample.Infrastructure.Configuration;
 using System;
 
 namespace OnionArchitectureSample.Api
@@ -36,17 +37,8 @@ namespace OnionArchitectureSample.Api
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            builder.Register<ApplicationDbContext>(context =>
-            {
-                var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-                optionsBuilder.UseSqlServer(
-                        "Server=.;Database=entityframework;Trusted_Connection=True;MultipleActiveResultSets=true;Database=OnionArchitectureSample"
-                        );
-
-                return new ApplicationDbContext(optionsBuilder.Options);
-            });
-
             builder.RegisterModule(new ServicesModule());
+            builder.RegisterModule(new DataAccessModule("Server=.;Database=entityframework;Trusted_Connection=True;MultipleActiveResultSets=true;Database=OnionArchitectureSample"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
