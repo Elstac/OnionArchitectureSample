@@ -1,6 +1,7 @@
 ﻿using OnionArchitectureSample.Application.Contracts;
 using OnionArchitectureSample.Application.Contracts.Dtos;
 using OnionArchitectureSample.Domain;
+using OnionArchitectureSample.Infrastructure;
 using OnionArchitectureSample.Infrastructure.Repositories;
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,12 @@ namespace OnionArchitectureSample.Application.Services
     class ProductService : IProductService
     {
         private IProductRepository productRepository;
+        private IUnitOfWork unitOfWork;
 
-        public ProductService(IProductRepository productRepository)
+        public ProductService(IProductRepository productRepository, IUnitOfWork unitOfWork)
         {
             this.productRepository = productRepository;
+            this.unitOfWork = unitOfWork;
         }
 
         public void AddProduct(ProductDto product)
@@ -22,6 +25,8 @@ namespace OnionArchitectureSample.Application.Services
             var newProduct = new Product(product.Name, product.Price);
 
             productRepository.AddProduct(newProduct);
+
+            unitOfWork.SeveChanges();
         }
 
         public IEnumerable<ProductDto> GetAllProducts()
@@ -40,6 +45,8 @@ namespace OnionArchitectureSample.Application.Services
         public void DeleteProduct(Guid productId)
         {
             productRepository.DeleteProduct(productId);
+
+            unitOfWork.SeveChanges();
         }
 
         public void UpdateProduct(Guid productId,ProductDto productDto)
@@ -52,6 +59,7 @@ namespace OnionArchitectureSample.Application.Services
             if (productDto.Price != 0)
                 productToUpdate.Price = productDto.Price;
 
+            unitOfWork.SeveChanges();
         }
     }
 }
