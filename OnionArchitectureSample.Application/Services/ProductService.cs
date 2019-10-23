@@ -2,6 +2,7 @@
 using OnionArchitectureSample.Application.Contracts.Dtos;
 using OnionArchitectureSample.Domain;
 using OnionArchitectureSample.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,6 +17,14 @@ namespace OnionArchitectureSample.Application.Services
             this.context = context;
         }
 
+        public void AddProduct(ProductDto product)
+        {
+            var newProduct = new Product(product.Name, product.Price);
+
+            context.Products.Add(newProduct);
+            context.SaveChanges();
+        }
+
         public IEnumerable<ProductDto> GetAllProducts()
         {
             var productDtosCollection = context
@@ -28,6 +37,30 @@ namespace OnionArchitectureSample.Application.Services
                                         .ToList();
 
             return productDtosCollection;
+        }
+
+        public void DeleteProduct(Guid productId)
+        {
+            var productToRemove = context.Products.Find(productId);
+
+            context.Products.Remove(productToRemove);
+
+            context.SaveChanges();
+        }
+
+        public void UpdateProduct(Guid productId,ProductDto productDto)
+        {
+            var productToUpdate = context.Products.Find(productId);
+
+            if (!string.IsNullOrEmpty(productDto.Name))
+                productToUpdate.Name = productDto.Name;
+
+            if (productDto.Price != 0)
+                productToUpdate.Price = productDto.Price;
+
+            context.Products.Update(productToUpdate);
+
+            context.SaveChanges();
         }
     }
 }
