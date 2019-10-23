@@ -1,8 +1,7 @@
-﻿using OnionArchitectureSample.Domain;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace OnionArchitectureSample.Infrastructure.Repositories
+namespace OnionArchitectureSample.Domain
 {
     public interface IProductRepository
     {
